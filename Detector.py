@@ -1,6 +1,5 @@
 import cv2 
 
-# Importing Models and set mean values 
 faceproto = "AgeGenderDetector/Models/opencv_face_detector.pbtxt"
 facemodel = "AgeGenderDetector/Models/opencv_face_detector_uint8.pb"
 ageproto = "AgeGenderDetector/Models/age_deploy.prototxt"
@@ -10,17 +9,14 @@ genmodel = "AgeGenderDetector/Models/gender_net.caffemodel"
 
 MODEL_MEAN_VALUES = (78.4263377603, 87.7689143744, 114.895847746) 
 
-# Using models 
 faceNet = cv2.dnn.readNet(facemodel, faceproto) 
 ageNet = cv2.dnn.readNet(agemodel, ageproto) 
 genNet = cv2.dnn.readNet(genmodel, genproto) 
 
-# Categories of distribution 
 agelist = ['(0-2)', '(4-6)', '(8-12)', '(15-20)', '(25-32)', '(38-43)', '(48-53)', '(60-100)'] 
 genlist = ['Male', 'Female'] 
 
 
-# Face detection 
 def faceBox(faceNet, frame) :
     frameHeight = frame.shape[0]
     frameWidth = frame.shape[1]
@@ -38,6 +34,7 @@ def faceBox(faceNet, frame) :
             bbox.append([x1,y1,x2,y2])
             cv2.rectangle(frame,(x1,y1),(x2,y2),(255,255,255),1)
     return frame, bbox
+
 
 video = cv2.VideoCapture(0)
 
